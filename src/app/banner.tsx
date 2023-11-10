@@ -9,7 +9,7 @@ function Banner() {
 				<a className="flex items-center">
 					<Image src="/anvil.png" width={75} height={75} alt="logo" className="pr-2"></Image>
 					<span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-						Universal Transaction Builder
+						Universal Transaction Executor
 					</span>
 				</a>
 				<div className="flex md:order-2">
