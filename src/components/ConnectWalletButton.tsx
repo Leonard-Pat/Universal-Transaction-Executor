@@ -25,7 +25,7 @@ function ConnectWalletButton() {
 		<>
 			<button
 				type="button"
-        onClick={disconnect}
+				onClick={disconnect}
 				className="me-2 flex items-center gap-[3px] rounded-lg bg-red-700 px-2 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 "
 			>
 				<AiOutlineDisconnect />
