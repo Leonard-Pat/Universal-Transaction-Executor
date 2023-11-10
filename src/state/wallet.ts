@@ -1,44 +1,32 @@
 import { create } from 'zustand';
 import type { ConnectedStarknetWindowObject } from 'get-starknet-core';
 
-export const useWalletStore = create<{
+type WalletStore = {
 	account?: ConnectedStarknetWindowObject['account'];
-	isWebWallet: boolean;
 	connecting: boolean;
 	connect: () => Promise<ConnectedStarknetWindowObject['account']>;
 	reconnect: () => Promise<void>;
 	disconnect: () => void;
-}>((set) => ({
-	isWebWallet: false,
+};
+
+export const useWalletStore = create<WalletStore>((set) => ({
 	connecting: true,
 	connect: async () => {
-		set({ connecting: true });
 		try {
 			const { connect } = await import('starknetkit');
-			const { InjectedConnector } = await import('starknetkit/injected');
 			const wallet = await connect({
-				connectors: [
-					new InjectedConnector({
-						options: { id: 'argentX' },
-					}),
-					new InjectedConnector({
-						options: { id: 'braavos' },
-					}),
-				],
+				modalMode: 'alwaysAsk',
 			});
-			if (!wallet?.account) {
+			if (!wallet || !wallet.account) {
 				throw new Error('No account found');
 			}
-			const isWebWallet = wallet.id === 'argentWebWallet';
-			set({ account: wallet.account, isWebWallet, connecting: false });
-			return wallet.account;
+			set({ account: wallet.account, connecting: false });
 		} catch (e) {
 			set({ connecting: false });
 			throw e;
 		}
 	},
 	reconnect: async () => {
-		set({ connecting: true });
 		try {
 			const { connect } = await import('starknetkit');
 			const wallet = await connect({
@@ -47,19 +35,17 @@ export const useWalletStore = create<{
 			if (!wallet?.account) {
 				throw new Error('No account found');
 			}
-			const isWebWallet = wallet.id === 'argentWebWallet';
-			set({ account: wallet.account, isWebWallet, connecting: false });
+			set({ account: wallet.account, connecting: false });
 		} catch (e) {
 			set({ connecting: false });
 			throw e;
 		}
 	},
 	disconnect: async () => {
-		set({ connecting: true });
 		try {
 			const { disconnect } = await import('starknetkit');
 			await disconnect({ clearLastWallet: true });
-			set({ account: undefined, isWebWallet: false, connecting: false });
+			set({ account: undefined, connecting: false });
 		} catch (e) {
 			set({ connecting: false });
 			throw e;
