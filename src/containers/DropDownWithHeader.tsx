@@ -9,7 +9,7 @@ interface InputProps extends TitleProps {
 	buttonAction: buttonAction;
 }
 
-export const InputWithHeader: FC<InputProps> = ({ Step, Description, label, buttonAction }) => {
+export const DropDownWithHeader: FC<InputProps> = ({ Step, Description, label, buttonAction }) => {
 	const [inputValue, setInputValue] = useState('');
 	return (
 		<div className="mt-8 flex flex-col items-center justify-between md:mt-0 ">
@@ -18,20 +18,12 @@ export const InputWithHeader: FC<InputProps> = ({ Step, Description, label, butt
 				<label htmlFor="small-input" className=" inline-block text-sm font-medium text-white">
 					{label}
 				</label>
-				<input
-					type="text"
-					autoComplete="off"
-					data-form-type="other"
-					className="mt-2 inline-block w-full rounded-lg border border-gray-300 bg-gray-600 p-2 text-gray-900  sm:text-xs"
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
+				{buttonAction == 'load' ? (
+					<SubmitButton action="load" message={inputValue} />
+				) : (
+					<SubmitButton action="execute" />
+				)}
 			</div>
-			{buttonAction == 'load' ? (
-				<SubmitButton action="load" message={inputValue} />
-			) : (
-				<SubmitButton action="execute" />
-			)}
 		</div>
 	);
 };

@@ -1,9 +1,10 @@
 import { TextAreaWithHeader } from '@/containers/TextAreaWithHeader';
 import { InputWithHeader } from '@/containers/InputWithHeader';
+import { DropDownWithHeader } from '@/containers/DropDownWithHeader';
 
 export default function Home() {
 	return (
-		<main className="flex min-w-full flex-col items-center justify-evenly px-40 md:flex-row">
+		<main className="flex min-w-full flex-wrap items-center justify-evenly gap-8 px-40 md:flex-nowrap">
 			<TextAreaWithHeader Step={1} Description="Paste in the compiled calldata in a JSON format" />
 			<InputWithHeader
 				Step={2}
@@ -11,7 +12,7 @@ export default function Home() {
 				label="Contract Address"
 				buttonAction="load"
 			/>
-			<InputWithHeader
+			<DropDownWithHeader
 				Step={3}
 				Description="Enter the entry point"
 				label="Entry Point"
