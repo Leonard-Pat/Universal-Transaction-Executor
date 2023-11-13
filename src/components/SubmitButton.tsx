@@ -26,12 +26,10 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 		try {
 			toast.loading('Loading Contract...');
 
-			let body = {};
-			if (account.provider.baseUrl) {
-				body = { baseUrl: account.provider.baseUrl };
-			} else if (account.nodeProvider) {
-				body = { nodeUrl: account.provider.nodeProvider };
-			}
+			const body = {
+				baseUrl: account.provider.baseUrl || account.provider.nodeUrl,
+				rpc: !account.provider.baseUrl,
+			};
 
 			const response = await fetch(`/api/contract/${message}`, {
 				method: 'POST',
@@ -42,8 +40,6 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 			});
 
 			if (response) {
-				let data = await response.json();
-				console.log(data.message);
 				setContractAddress(message as string, '0');
 			}
 			toast.remove();
