@@ -23,46 +23,48 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 	const callData = useCallDataStore((state) => state.callData);
 	const connected = Boolean(account);
 
-
 	const handleLoad = async (body: any) => {
 		try {
-		toast.loading('Loading Contract...');
+			toast.loading('Loading Contract...');
 
-		const response = await fetch(`/api/contract/${message}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(body),
-		});
+			const response = await fetch(`/api/contract/${message}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body),
+			});
 
-		if (response) {
-			let data = await response.json();
-			setContractAbi(data.abi);
-			setContractAddress(message as string, '1');
+			if (response) {
+				let data = await response.json();
+				setContractAbi(data.abi);
+				setContractAddress(message as string, '1');
+			}
+			toast.remove();
+			toast.success('Contract Loaded!');
+		} catch (e) {
+			toast.remove();
+			toast.error('Error loading contract');
 		}
-		toast.remove();
-		toast.success('Contract Loaded!');
-	} catch (e) {
-		toast.remove();
-		toast.error('Error loading contract');
-	}};
+	};
 
 	const handleExecute = async (body: any) => {
 		console.log(message as string);
-		try {		
+		try {
 			console.log(typeof callData);
 			const userAccount: AccountInterface = account;
 			let entrypoint = message as string;
 			const cd = new CallData(contractAbi as Abi).compile(entrypoint, callData);
-			const calls = [ {
-				contractAddress: contractAddress,
-				entrypoint: entrypoint,
-				calldata: cd,
-			}]
-			await userAccount.execute(calls)
+			const calls = [
+				{
+					contractAddress: contractAddress,
+					entrypoint: entrypoint,
+					calldata: cd,
+				},
+			];
+			await userAccount.execute(calls);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
 	};
 
@@ -81,7 +83,6 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 		} else if (action == 'execute') {
 			handleExecute(body);
 		}
-		
 	};
 
 	return (

@@ -5,12 +5,12 @@ type CallDataStore = {
 };
 
 type UpdateCallDataStore = {
-    setCallData: (callData: any) => void;
+	setCallData: (callData: any) => void;
 };
 
 export const useCallDataStore = create<CallDataStore & UpdateCallDataStore>((set) => ({
 	callData: {},
 	setCallData: (callData) => {
-		set(() => ({ callData: callData }))
-    },
+		set(() => ({ callData: callData }));
+	},
 }));

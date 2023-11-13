@@ -3,13 +3,13 @@ import { Abi } from 'starknet';
 
 type ContractStore = {
 	contractAddress: string;
-  contractAbi?: Abi;
+	contractAbi?: Abi;
 	cairoVersion: string;
 };
 
 type UpdateContractStore = {
 	setContractAddress: (contractAddress: string, cairoVersion: string) => void;
-  setContractAbi: (contractAbi: Abi) => void;
+	setContractAbi: (contractAbi: Abi) => void;
 };
 
 export const useContractStore = create<ContractStore & UpdateContractStore>((set) => ({
@@ -17,5 +17,5 @@ export const useContractStore = create<ContractStore & UpdateContractStore>((set
 	cairoVersion: '',
 	setContractAddress: (contractAddress, cairoVersion) =>
 		set(() => ({ contractAddress: contractAddress, cairoVersion: cairoVersion })),
-  setContractAbi: (contractAbi) => set(() => ({ contractAbi: contractAbi })),
+	setContractAbi: (contractAbi) => set(() => ({ contractAbi: contractAbi })),
 }));
