@@ -18,10 +18,18 @@ export const DropDownWithHeader: FC<InputProps> = ({ Step, Description, label, b
 				<label htmlFor="small-input" className=" inline-block text-sm font-medium text-white">
 					{label}
 				</label>
+				<input
+					type="text"
+					autoComplete="off"
+					data-form-type="other"
+					className="mt-2 inline-block w-full rounded-lg border border-gray-300 bg-gray-600 p-2 text-gray-900  sm:text-xs"
+					value={inputValue}
+					onChange={(e) => setInputValue(e.target.value)}
+				/>
 				{buttonAction == 'load' ? (
 					<SubmitButton action="load" message={inputValue} />
 				) : (
-					<SubmitButton action="execute" />
+					<SubmitButton action="execute" message={inputValue} />
 				)}
 			</div>
 		</div>

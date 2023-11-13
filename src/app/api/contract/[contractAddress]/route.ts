@@ -11,7 +11,5 @@ export async function POST(req: Request, context: any) {
 
 	const { contractAddress } = context.params;
 	const { abi } = await provider.getClassAt(contractAddress);
-	let contract = new Contract(abi, contractAddress, provider);
-	const keysArray = Object.keys(contract.functions);
-	return NextResponse.json({ message: keysArray });
+	return NextResponse.json({ abi });
 }
