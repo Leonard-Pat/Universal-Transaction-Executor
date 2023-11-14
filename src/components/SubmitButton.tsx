@@ -23,9 +23,14 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 	const callData = useCallDataStore((state) => state.callData);
 	const connected = Boolean(account);
 
-	const handleLoad = async (body: any) => {
+	const handleLoad = async () => {
 		try {
 			toast.loading('Loading Contract...');
+
+			const body = {
+				baseUrl: account.provider.baseUrl || account.provider.nodeUrl,
+				rpc: !account.provider.baseUrl,
+			};
 
 			const response = await fetch(`/api/contract/${message}`, {
 				method: 'POST',
@@ -48,12 +53,24 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 		}
 	};
 
-	const handleExecute = async (body: any) => {
-		console.log(message as string);
+	const handleExecute = async () => {
 		try {
-			console.log(typeof callData);
+			if (contractAddress === '') {
+				toast.error('No contract address found');
+				return;
+			}
+			if (Object.keys(callData).length === 0) {
+				toast.error('No call data found');
+				return;
+			}
+			const entrypoint = message as string;
+			if (entrypoint === undefined) {
+				toast.error('No entry point found');
+				return;
+			}
 			const userAccount: AccountInterface = account;
-			let entrypoint = message as string;
+
+			console.log(entrypoint);
 			const cd = new CallData(contractAbi as Abi).compile(entrypoint, callData);
 			const calls = [
 				{
@@ -74,19 +91,15 @@ export const SubmitButton: FC<SubmitProps> = ({ action, message }) => {
 			toast.success('You are now connected!');
 			return;
 		}
-		const body = {
-			baseUrl: account.provider.baseUrl || account.provider.nodeUrl,
-			rpc: !account.provider.baseUrl,
-		};
 		if (action == 'load') {
-			handleLoad(body);
+			handleLoad();
 		} else if (action == 'execute') {
-			handleExecute(body);
+			handleExecute();
 		}
 	};
 
 	return (
-		<div className="mt-10">
+		<div className="mt-10 self-center">
 			<Toaster position="bottom-right" reverseOrder={false} />
 			<button
 				className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-200 group-hover:from-pink-500 group-hover:to-orange-400 dark:text-white dark:focus:ring-pink-800"

@@ -22,7 +22,8 @@ export const InputWithHeader: FC<InputProps> = ({ Step, Description, label, butt
 					type="text"
 					autoComplete="off"
 					data-form-type="other"
-					className="mt-2 inline-block w-full rounded-lg border border-gray-300 bg-gray-600 p-2 text-gray-900  sm:text-xs"
+					size={25}
+					className="mt-2 inline-block rounded-lg border border-gray-300 p-2 text-lg text-gray-900"
 					value={inputValue}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
@@ -30,7 +31,7 @@ export const InputWithHeader: FC<InputProps> = ({ Step, Description, label, butt
 			{buttonAction == 'load' ? (
 				<SubmitButton action="load" message={inputValue} />
 			) : (
-				<SubmitButton action="execute" />
+				<SubmitButton action="execute" message={inputValue} />
 			)}
 		</div>
 	);
