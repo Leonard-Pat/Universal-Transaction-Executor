@@ -4,8 +4,8 @@ import { DropDownWithHeader } from '@/containers/DropDownWithHeader';
 
 export default function Home() {
 	return (
-		<main className="flex min-w-full flex-wrap items-center justify-evenly gap-8 px-40 md:flex-nowrap">
-			<TextAreaWithHeader Step={1} Description="Paste in the compiled calldata in a JSON format" />
+		<main className="flex min-w-full flex-wrap items-center justify-evenly gap-8 px-40 md:flexs-nowrap">
+			<TextAreaWithHeader Step={1} Description="Paste in the calldata in a JSON format" />
 			<InputWithHeader
 				Step={2}
 				Description="Enter the contract address"

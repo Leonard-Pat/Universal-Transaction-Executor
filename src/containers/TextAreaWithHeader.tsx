@@ -22,7 +22,7 @@ export const TextAreaWithHeader: FC<TitleProps> = ({ Step, Description }) => {
 			<StepTitle Step={Step} Description={Description} />
 			<textarea
 				id="message"
-				className="mb-40 block h-72 w-full resize-none rounded-lg border border-gray-300 bg-gray-600 p-2.5 text-sm text-black "
+				className="mb-40 block w-full resize-none rounded-lg border border-gray-300 bg-gray-600 p-2.5 text-sm text-black "
 				placeholder="Insert calldata here"
 				onChange={handleInputChange}
 			></textarea>
