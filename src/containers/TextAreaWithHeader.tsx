@@ -1,32 +1,42 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { StepTitle, TitleProps } from '@/components/StepTitle';
-import { useCallDataStore } from '@/state/callData';
+import Editor from '@monaco-editor/react';
+import { SubmitButton } from '@/components/SubmitButton';
+import { AllowArray, Call } from 'starknet';
 
 export const TextAreaWithHeader: FC<TitleProps> = ({ Step, Description }) => {
-	const setCallData = useCallDataStore((state) => state.setCallData);
+	const [callData, setCallData] = useState<AllowArray<Call>>();
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+	const handleInputChange = (message: string | undefined) => {
 		try {
-			const parsedValue = JSON.parse(e.target.value);
+			const parsedValue = JSON.parse(message as string);
 			setCallData(parsedValue);
 		} catch (error) {
-			// Handle the error case when the value is not valid JSON
 			console.error('Invalid JSON syntax');
 		}
+	};
+
+	const options = {
+		minimap: {
+			enabled: false,
+		},
+		wordWrap: 'on',
 	};
 
 	return (
 		<div className="flex flex-col">
 			<StepTitle Step={Step} Description={Description} />
-			<textarea
-				id="message"
-				className="mb-40 resize-none rounded-lg border border-gray-300 text-lg text-black lg:w-full "
-				placeholder="Insert calldata here"
-				rows={8}
-				onChange={handleInputChange}
-			></textarea>
+			<Editor
+				height={'40rem'}
+				width={'40rem'}
+				theme="vs-dark"
+				language="json"
+				onChange={(message) => handleInputChange(message)}
+				options={options}
+			/>
+			<SubmitButton calls={callData} />
 		</div>
 	);
 };
