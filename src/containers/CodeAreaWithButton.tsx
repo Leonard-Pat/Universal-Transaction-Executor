@@ -1,12 +1,11 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { StepTitle, TitleProps } from '@/components/StepTitle';
 import Editor from '@monaco-editor/react';
 import { SubmitButton } from '@/components/SubmitButton';
 import { AllowArray, Call } from 'starknet';
 
-export const TextAreaWithHeader: FC<TitleProps> = ({ Step, Description }) => {
+export const TextAreaWithHeader = () => {
 	const [callData, setCallData] = useState<AllowArray<Call>>();
 
 	const handleInputChange = (message: string | undefined) => {
@@ -27,15 +26,20 @@ export const TextAreaWithHeader: FC<TitleProps> = ({ Step, Description }) => {
 
 	return (
 		<div className="flex flex-col">
-			<StepTitle Step={Step} Description={Description} />
-			<Editor
-				height={'40rem'}
-				width={'40rem'}
-				theme="vs-dark"
-				language="json"
-				onChange={(message) => handleInputChange(message)}
-				options={options}
-			/>
+			<h3 className="self-center whitespace-nowrap font-turret-road text-3xl font-bold">
+				Enter calldata as a JSON array
+			</h3>
+			<div className="bg-white p-10">
+				<Editor
+					height={'30rem'}
+					width={'40rem'}
+					theme="vs-dark"
+					language="json"
+					onChange={(message) => handleInputChange(message)}
+					options={options}
+				/>
+			</div>
+
 			<SubmitButton calls={callData} />
 		</div>
 	);
