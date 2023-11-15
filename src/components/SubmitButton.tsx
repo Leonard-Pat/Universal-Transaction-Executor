@@ -43,14 +43,14 @@ export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
 		<div className="mt-10 self-center">
 			<Toaster position="bottom-right" reverseOrder={false} />
 			<button
-				className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 pl-2 text-base font-bold text-gray-900 hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-200 group-hover:from-pink-500 group-hover:to-orange-400 dark:text-white dark:focus:ring-pink-800"
+				className="font-boldtext-white group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 pl-2 text-base hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-800 group-hover:from-pink-500 group-hover:to-orange-400"
 				onClick={handleClick}
 			>
 				<span className="mr-2">
 					<IoIosColorWand size={30} />
 				</span>
 
-				<span className="relative rounded-md bg-white px-10 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900">
+				<span className="relative rounded-md bg-gray-900 px-10 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0">
 					Execute Transaction
 				</span>
 			</button>
