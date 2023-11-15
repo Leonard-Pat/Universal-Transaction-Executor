@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<body className={inter.className}>
 				<Banner></Banner>
-				<div className="flex min-h-screen justify-center bg-black">{children}</div>
+				<div className="absolute m-0 min-h-[calc(100%-87px)] min-w-full bg-black">{children}</div>
 			</body>
 		</html>
 	);
