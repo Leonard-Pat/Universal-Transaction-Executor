@@ -15,6 +15,9 @@ const config: Config = {
 			colors: {
 				argent: '#ff865c',
 			},
+			fontFamily: {
+				'turret-road': ['Turret Road', 'sans-serif'],
+			},
 		},
 	},
 	plugins: [],

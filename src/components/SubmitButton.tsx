@@ -21,7 +21,10 @@ export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
 				return;
 			}
 			const userAccount: AccountInterface = account;
-			await userAccount.execute(calls);
+			let { transaction_hash } = await userAccount.execute(calls);
+			userAccount.waitForTransaction(transaction_hash).then(() => {
+				toast.success('Transaction executed!');
+			});
 		} catch (e) {
 			console.log(e);
 		}
