@@ -14,7 +14,7 @@ export const TextAreaWithHeader = () => {
 	useEffect(() => {
 		const handleResize = () => {
 			const breakpoints = [
-				{ max: 410, width: '20rem', height: '20rem' },
+				{ max: 410, width: '22rem', height: '25rem' },
 				{ max: 500, width: '25rem', height: '25rem' },
 				{ max: 768, width: '30rem', height: '30rem' },
 				{ max: 1536, width: '40rem', height: '30rem' },
