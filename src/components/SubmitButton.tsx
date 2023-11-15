@@ -40,7 +40,7 @@ export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
 	};
 
 	return (
-		<div className="mt-32 self-center sm:mt-10">
+		<div className="mt-14 self-center sm:mt-10">
 			<Toaster position="bottom-right" reverseOrder={false} />
 			<button
 				className="font-boldtext-white group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 pl-2 text-base hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-800 group-hover:from-pink-500 group-hover:to-orange-400"
