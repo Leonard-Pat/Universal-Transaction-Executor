@@ -32,7 +32,7 @@ function ConnectWalletButton() {
 	return (
 		<>
 			<Toaster position="bottom-right" reverseOrder={false} />
-			
+
 			<button
 				className="group-hover:to-orange-400text-white group relative mr-4 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-800 group-hover:from-pink-500"
 				onClick={disconnect}
@@ -41,7 +41,7 @@ function ConnectWalletButton() {
 					{formatAddress(account?.address)}
 				</span>
 			</button>
-			
+
 			<button
 				type="button"
 				onClick={() => {
@@ -52,7 +52,6 @@ function ConnectWalletButton() {
 			>
 				<AiOutlineDisconnect />
 			</button>
-
 		</>
 	);
 }
