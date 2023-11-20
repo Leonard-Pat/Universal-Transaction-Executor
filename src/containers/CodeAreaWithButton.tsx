@@ -1,10 +1,10 @@
 'use client';
 
-import { FC, useState, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
+import { useState, useEffect } from 'react';
 import { SubmitButton } from '@/components/SubmitButton';
-import { AllowArray, Call } from 'starknet';
 import InstructionTitle from '@/components/InstructionTitle';
+import Editor from '@monaco-editor/react';
+import { AllowArray, Call, selector } from 'starknet';
 
 export const TextAreaWithHeader = () => {
 	const [callData, setCallData] = useState<AllowArray<Call>>();
@@ -64,6 +64,15 @@ export const TextAreaWithHeader = () => {
 				language="json"
 				onChange={(message) => handleInputChange(message)}
 				options={options}
+				defaultValue={` // Example value - please replace before executing
+[
+	{
+		"contractAddress": "0x000000",
+		"entrypoint": "example_entrypoint",
+		"callData": ["0"]
+	}
+]
+`}
 			/>
 			<SubmitButton calls={callData} />
 		</div>
