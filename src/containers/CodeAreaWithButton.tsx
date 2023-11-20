@@ -69,7 +69,7 @@ export const TextAreaWithHeader = () => {
 	{
 		"contractAddress": "0x000000",
 		"entrypoint": "example_entrypoint",
-		"callData": ["0"]
+		"calldata": ["0"]
 	}
 ]
 `}
