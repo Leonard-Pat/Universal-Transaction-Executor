@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import ConnectWalletButton from '@/components/ConnectWalletButton';
+import ChainViewer from '@/components/ChainViewer';
 
 function Banner() {
 	return (
@@ -27,6 +28,7 @@ function Banner() {
 					</span>
 				</a>
 				<div className="flex md:order-2">
+					<ChainViewer />
 					<ConnectWalletButton />
 				</div>
 			</div>
