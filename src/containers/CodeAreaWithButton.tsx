@@ -55,7 +55,7 @@ export const TextAreaWithHeader = () => {
 	};
 
 	return (
-		<div className="mt-10 flex flex-col">
+		<div className="mt-10 flex flex-col justify-center">
 			<InstructionTitle />
 			<Editor
 				height={editorHeight}
