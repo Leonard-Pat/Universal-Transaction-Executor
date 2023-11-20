@@ -51,7 +51,7 @@ export const TextAreaWithHeader = () => {
 			enabled: false,
 		},
 		wordWrap: 'on',
-		autmaticLayout: true,
+		automaticLayout: true,
 	};
 
 	return (
