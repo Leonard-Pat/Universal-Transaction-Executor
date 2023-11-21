@@ -26,7 +26,7 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 				console.log(sig);
 			});
 		} catch (e) {
-			console.log(e);
+			toast.error('Incorrect Message Format');
 		}
 	};
 

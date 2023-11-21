@@ -26,7 +26,7 @@ export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
 				toast.success('Transaction executed!');
 			});
 		} catch (e) {
-			console.log(e);
+			toast.error('Incorrect Calldata Format');
 		}
 	};
 
