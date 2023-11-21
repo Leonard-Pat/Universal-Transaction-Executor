@@ -5,8 +5,7 @@ import ChainViewer from '@/components/ChainViewer';
 
 function Banner() {
 	return (
-		<nav className="min-w-full bg-black">
-			<div className="mx-auto flex max-w-screen-2xl items-center justify-between p-4 pb-1">
+		<nav className="min-w-full flex items-center justify-between bg-black mx-auto max-w-screen-2xl  p-4 pb-1">
 				<a className="flex items-center">
 					<Image src="/anvil.png" width={75} height={75} alt="logo" className="pr-2"></Image>
 					<span className="font-600 hidden self-center whitespace-nowrap font-turret-road text-3xl font-bold text-white md:inline">
@@ -31,7 +30,6 @@ function Banner() {
 					<ChainViewer />
 					<ConnectWalletButton />
 				</div>
-			</div>
 		</nav>
 	);
 }

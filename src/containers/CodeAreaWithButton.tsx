@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import { SubmitButton } from '@/components/SubmitButton';
 import InstructionTitle from '@/components/InstructionTitle';
 import Editor from '@monaco-editor/react';
-import { AllowArray, Call, selector } from 'starknet';
+import { AllowArray, Call } from 'starknet';
+import { SwitchTabButton } from '@/components/SwitchTabButton';
 
-export const TextAreaWithHeader = () => {
+export const CodeAreaWithButtons = () => {
 	const [callData, setCallData] = useState<AllowArray<Call>>();
 	const [editorWidth, setEditorWidth] = useState('');
 	const [editorHeight, setEditorHeight] = useState('');
@@ -74,7 +75,10 @@ export const TextAreaWithHeader = () => {
 ]
 `}
 			/>
-			<SubmitButton calls={callData} />
+			<div className="flex min-w-full flex-row items-center justify-between">
+				<SubmitButton calls={callData} />
+				<SwitchTabButton text={'Create Signature'} link={'signature'} />
+			</div>
 		</div>
 	);
 };
