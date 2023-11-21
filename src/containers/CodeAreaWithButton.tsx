@@ -68,7 +68,7 @@ export const CodeAreaWithButtons = () => {
 				language="json"
 				onChange={(message) => handleInputChange(message)}
 				options={options}
-				defaultValue={` // Example value - please replace before executing
+				defaultValue={` // Example calldata - please replace before executing
 [
 	{
 		"contractAddress": "0x000000",
@@ -76,6 +76,27 @@ export const CodeAreaWithButtons = () => {
 		"calldata": ["0"]
 	}
 ]
+
+// Example message - please replace before executing
+{
+	"domain": {
+	  "name": "Example DApp",
+	  "chainId": "0x1",
+	  "version": "0.0.1"
+	},
+	"types": {
+	  "StarkNetDomain": [
+		{ "name": "name", "type": "felt" },
+		{ "name": "chainId", "type": "felt" },
+		{ "name": "version", "type": "felt" }
+	  ],
+	  "Message": [{ "name": "message", "type": "felt" }]
+	},
+	"primaryType": "Message",
+	"message": {
+	  "message": "1234"
+	}
+  }
 `}
 			/>
 			<div className="flex min-w-full flex-row items-center justify-between">
