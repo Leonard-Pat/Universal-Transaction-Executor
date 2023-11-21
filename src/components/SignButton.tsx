@@ -17,7 +17,7 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 	const handleSign = async () => {
 		try {
 			if (userTypedData === undefined) {
-				toast.error('Calls empty');
+				toast.error('Message empty');
 				return;
 			}
 			const userAccount: AccountInterface = account;
