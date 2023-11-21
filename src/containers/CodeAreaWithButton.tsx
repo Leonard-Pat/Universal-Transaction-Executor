@@ -4,44 +4,48 @@ import { useState, useEffect } from 'react';
 import { SubmitButton } from '@/components/SubmitButton';
 import InstructionTitle from '@/components/InstructionTitle';
 import Editor from '@monaco-editor/react';
-import { AllowArray, Call } from 'starknet';
-import { SwitchTabButton } from '@/components/SwitchTabButton';
+import { AllowArray, Call, typedData } from 'starknet';
+import { SignButton } from '@/components/SignButton';
+import { useRouter } from 'next/navigation';
 
 export const CodeAreaWithButtons = () => {
-	const [callData, setCallData] = useState<AllowArray<Call>>();
+	const [jsonData, setJsonData] = useState<string>();
 	const [editorWidth, setEditorWidth] = useState('');
 	const [editorHeight, setEditorHeight] = useState('');
+	const router = useRouter();
+
+	const handleResize = () => {
+		const breakpoints = [
+			{ max: 410, width: '22rem', height: '22rem' },
+			{ max: 500, width: '25rem', height: '22rem' },
+			{ max: 768, width: '30rem', height: '27rem' },
+			{ max: 1536, width: '40rem', height: '30rem' },
+		];
+
+		const screenWidth = window.innerWidth;
+
+		const { width, height } = breakpoints.find(({ max }) => screenWidth < max) || {
+			width: '60rem',
+			height: '30rem',
+		};
+
+		setEditorWidth(width);
+		setEditorHeight(height);
+	};
 
 	useEffect(() => {
-		const handleResize = () => {
-			const breakpoints = [
-				{ max: 410, width: '22rem', height: '22rem' },
-				{ max: 500, width: '25rem', height: '22rem' },
-				{ max: 768, width: '30rem', height: '27rem' },
-				{ max: 1536, width: '40rem', height: '30rem' },
-			];
-
-			const screenWidth = window.innerWidth;
-
-			const { width, height } = breakpoints.find(({ max }) => screenWidth < max) || {
-				width: '60rem',
-				height: '30rem',
-			};
-
-			setEditorWidth(width);
-			setEditorHeight(height);
-		};
 		handleResize();
 		window.addEventListener('resize', handleResize);
+
+		router.push(`?jsonData=${JSON.stringify(jsonData)}`);
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, []);
+	}, [router, jsonData]);
 
 	const handleInputChange = (message: string | undefined) => {
 		try {
-			const parsedValue = JSON.parse(message as string);
-			setCallData(parsedValue);
+			setJsonData(message as string);
 		} catch (error) {
 			console.error('Invalid JSON syntax');
 		}
@@ -76,8 +80,8 @@ export const CodeAreaWithButtons = () => {
 `}
 			/>
 			<div className="flex min-w-full flex-row items-center justify-between">
-				<SubmitButton calls={callData} />
-				<SwitchTabButton text={'Create Signature'} link={'signature'} />
+				<SubmitButton />
+				<SignButton />
 			</div>
 		</div>
 	);

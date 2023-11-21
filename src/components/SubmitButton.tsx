@@ -5,21 +5,22 @@ import { useWalletStore } from '@/state/wallet';
 import toast, { Toaster } from 'react-hot-toast';
 import { AccountInterface, AllowArray, Call } from 'starknet';
 import { IoIosColorWand } from 'react-icons/io';
+import { useSearchParams } from 'next/navigation';
 
-interface SubmitProps {
-	calls: AllowArray<Call> | undefined;
-}
-
-export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
+export const SubmitButton: FC = () => {
 	const { connect, account } = useWalletStore();
 	const connected = Boolean(account);
+	const searchParams = useSearchParams();
 
 	const handleExecute = async () => {
 		try {
-			if (calls === undefined) {
+			const jsonString = searchParams.get('jsonData');
+
+			if (jsonString == 'undefined') {
 				toast.error('Calls empty');
 				return;
 			}
+			const calls = JSON.parse(jsonString as string) as Array<Call>;
 			const userAccount: AccountInterface = account;
 			let { transaction_hash } = await userAccount.execute(calls);
 			userAccount.waitForTransaction(transaction_hash).then(() => {
