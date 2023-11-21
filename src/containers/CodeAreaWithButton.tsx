@@ -6,13 +6,13 @@ import InstructionTitle from '@/components/InstructionTitle';
 import Editor from '@monaco-editor/react';
 import { AllowArray, Call, typedData } from 'starknet';
 import { SignButton } from '@/components/SignButton';
-import { useRouter } from 'next/navigation';
 
 export const CodeAreaWithButtons = () => {
-	const [jsonData, setJsonData] = useState<string>();
+	const [callData, setCallData] = useState<AllowArray<Call>>();
+	const [typedData, setTypedData] = useState<typedData.TypedData>();
+
 	const [editorWidth, setEditorWidth] = useState('');
 	const [editorHeight, setEditorHeight] = useState('');
-	const router = useRouter();
 
 	const handleResize = () => {
 		const breakpoints = [
@@ -36,16 +36,15 @@ export const CodeAreaWithButtons = () => {
 	useEffect(() => {
 		handleResize();
 		window.addEventListener('resize', handleResize);
-
-		router.push(`?jsonData=${JSON.stringify(jsonData)}`);
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [router, jsonData]);
+	}, []);
 
 	const handleInputChange = (message: string | undefined) => {
 		try {
-			setJsonData(message as string);
+			setCallData(JSON.parse(message as string) as AllowArray<Call>);
+			setTypedData(JSON.parse(message as string) as typedData.TypedData);
 		} catch (error) {
 			console.error('Invalid JSON syntax');
 		}
@@ -80,8 +79,8 @@ export const CodeAreaWithButtons = () => {
 `}
 			/>
 			<div className="flex min-w-full flex-row items-center justify-between">
-				<SubmitButton />
-				<SignButton />
+				<SubmitButton calls={callData} />
+				<SignButton userTypedData={typedData} />
 			</div>
 		</div>
 	);

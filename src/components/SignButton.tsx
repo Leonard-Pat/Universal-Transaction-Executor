@@ -3,19 +3,31 @@
 import { FC } from 'react';
 import { useWalletStore } from '@/state/wallet';
 import toast, { Toaster } from 'react-hot-toast';
-import { AccountInterface } from 'starknet';
+import { AccountInterface, typedData } from 'starknet';
 import { FaFileSignature } from 'react-icons/fa6';
-import { useSearchParams } from 'next/navigation';
 
-export const SignButton: FC = () => {
+interface SignProps {
+	userTypedData: typedData.TypedData | undefined;
+}
+
+export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 	const { connect, account } = useWalletStore();
 	const connected = Boolean(account);
-	const searchParams = useSearchParams();
-	const message = searchParams.get('message');
 
 	const handleSign = async () => {
-		const userAccount: AccountInterface = account;
-		// const sig = await userAccount.signMessage();
+		try {
+			if (userTypedData === undefined) {
+				toast.error('Calls empty');
+				return;
+			}
+			const userAccount: AccountInterface = account;
+			await userAccount.signMessage(userTypedData).then((sig) => {
+				toast.success('Messaged Signed!');
+				console.log(sig);
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const handleClick = async () => {
