@@ -5,20 +5,7 @@ import { useWalletStore } from '@/state/wallet';
 import toast, { Toaster } from 'react-hot-toast';
 import { AccountInterface, typedData } from 'starknet';
 import { FaFileSignature } from 'react-icons/fa6';
-
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
 import { SignatureModal } from './SignatureModal';
-  
 
 interface SignProps {
 	userTypedData: typedData.TypedData | undefined;
@@ -27,7 +14,7 @@ interface SignProps {
 export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 	const { connect, account } = useWalletStore();
 	const [isOpen, setIsOpen] = useState(false);
-	const [signature, setSignature] = useState<string[]>([]);
+	const [signature, setSignature] = useState<string[]>(['', '']);
 	const connected = Boolean(account);
 
 	const handleSign = async () => {
@@ -41,10 +28,10 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 				toast.success('Messaged Signed!');
 				let sigString = sig as string[];
 				setSignature(sigString);
-				navigator.clipboard.writeText(sigString.join(" "))
+				navigator.clipboard.writeText(sigString.join(' '));
 				setTimeout(() => {
 					setIsOpen(true);
-				  }, 1000)
+				}, 1000);
 			});
 		} catch (e) {
 			toast.error('Incorrect Message Format');
@@ -67,7 +54,7 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 				className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 p-0.5 text-base font-bold text-white hover:text-white focus:outline-none focus:ring-1 focus:ring-pink-800 group-hover:from-pink-500 group-hover:to-orange-400"
 				onClick={handleClick}
 			>
-				<span className=" px-3 py-2 sm:px-5 sm:py-2.5 relative rounded-md bg-gray-900 text-xs text-white transition-all duration-75 ease-in group-hover:bg-opacity-0 md:text-base">
+				<span className=" relative rounded-md bg-gray-900 px-3 py-2 text-xs text-white transition-all duration-75 ease-in group-hover:bg-opacity-0 sm:px-5 sm:py-2.5 md:text-base">
 					Sign Message
 				</span>
 				<span className="ml-1">
@@ -75,7 +62,6 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 				</span>
 			</button>
 			<SignatureModal signature={signature} isOpen={isOpen} setOpenState={setIsOpen} />
-				
 		</div>
 	);
 };

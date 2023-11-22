@@ -31,14 +31,13 @@ export const CodeAreaWithButtons = () => {
 	return (
 		<div className="mt-10 flex flex-col justify-center">
 			<InstructionTitle />
-			<div  className="w-[23rem] h-[22rem] sm:w-[30rem] sm:h-[25rem] md:w-[35rem] md:h-[30rem] lg:w-[40rem] lg:h-[30rem] xl:w-[55rem] xl:h-[35rem]  self-center">
-			<Editor
-
-  theme="vs-dark"
-				language="json"
-				onChange={(message) => handleInputChange(message)}
-				options={options}
-				defaultValue={` // Example calldata - please replace before executing
+			<div className="h-[22rem] w-[23rem] self-center sm:h-[25rem] sm:w-[30rem] md:h-[30rem] md:w-[35rem] lg:h-[30rem] lg:w-[40rem] xl:h-[35rem]  xl:w-[55rem]">
+				<Editor
+					theme="vs-dark"
+					language="json"
+					onChange={(message) => handleInputChange(message)}
+					options={options}
+					defaultValue={` // Example calldata - please replace before executing
 [
 	{
 		"contractAddress": "0x000000",
@@ -68,10 +67,10 @@ export const CodeAreaWithButtons = () => {
 	}
   }
 `}
-			/>
+				/>
 			</div>
 
-			<div className="flex min-w-full items-center flex-row  justify-between">
+			<div className="flex min-w-full flex-row items-center  justify-between">
 				<SubmitButton calls={callData} />
 				<SignButton userTypedData={typedData} />
 			</div>
