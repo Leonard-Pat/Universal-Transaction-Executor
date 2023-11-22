@@ -1,10 +1,24 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useWalletStore } from '@/state/wallet';
 import toast, { Toaster } from 'react-hot-toast';
 import { AccountInterface, typedData } from 'starknet';
 import { FaFileSignature } from 'react-icons/fa6';
+
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
+import { SignatureModal } from './SignatureModal';
+  
 
 interface SignProps {
 	userTypedData: typedData.TypedData | undefined;
@@ -12,6 +26,8 @@ interface SignProps {
 
 export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 	const { connect, account } = useWalletStore();
+	const [isOpen, setIsOpen] = useState(false);
+	const [signature, setSignature] = useState<string[]>([]);
 	const connected = Boolean(account);
 
 	const handleSign = async () => {
@@ -23,7 +39,12 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 			const userAccount: AccountInterface = account;
 			await userAccount.signMessage(userTypedData).then((sig) => {
 				toast.success('Messaged Signed!');
-				console.log(sig);
+				let sigString = sig as string[];
+				setSignature(sigString);
+				navigator.clipboard.writeText(sigString.join(" "))
+				setTimeout(() => {
+					setIsOpen(true);
+				  }, 1000)
 			});
 		} catch (e) {
 			toast.error('Incorrect Message Format');
@@ -53,6 +74,8 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 					<FaFileSignature size={25} />
 				</span>
 			</button>
+			<SignatureModal signature={signature} isOpen={isOpen} setOpenState={setIsOpen} />
+				
 		</div>
 	);
 };
