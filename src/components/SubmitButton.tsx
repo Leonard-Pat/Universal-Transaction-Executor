@@ -47,10 +47,10 @@ export const SubmitButton: FC<SubmitProps> = ({ calls }) => {
 				onClick={handleClick}
 			>
 				<span className="mr-2">
-					<IoIosColorWand size={30} />
+					<IoIosColorWand size={29} />
 				</span>
 
-				<span className="relative rounded-md bg-gray-900 px-10 py-2.5 text-xs text-white transition-all duration-75 ease-in group-hover:bg-opacity-0 md:text-base">
+				<span className="relative rounded-md bg-gray-900 px-3 py-2 sm:px-5 sm:py-2.5 md:px-8 text-xs text-white transition-all duration-75 ease-in group-hover:bg-opacity-0 md:text-base">
 					Execute Transaction
 				</span>
 			</button>

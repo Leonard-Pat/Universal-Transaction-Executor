@@ -11,36 +11,6 @@ export const CodeAreaWithButtons = () => {
 	const [callData, setCallData] = useState<AllowArray<Call>>();
 	const [typedData, setTypedData] = useState<typedData.TypedData>();
 
-	const [editorWidth, setEditorWidth] = useState('');
-	const [editorHeight, setEditorHeight] = useState('');
-
-	const handleResize = () => {
-		const breakpoints = [
-			{ max: 410, width: '22rem', height: '22rem' },
-			{ max: 500, width: '25rem', height: '22rem' },
-			{ max: 768, width: '30rem', height: '27rem' },
-			{ max: 1536, width: '40rem', height: '30rem' },
-		];
-
-		const screenWidth = window.innerWidth;
-
-		const { width, height } = breakpoints.find(({ max }) => screenWidth < max) || {
-			width: '60rem',
-			height: '30rem',
-		};
-
-		setEditorWidth(width);
-		setEditorHeight(height);
-	};
-
-	useEffect(() => {
-		handleResize();
-		window.addEventListener('resize', handleResize);
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
-
 	const handleInputChange = (message: string | undefined) => {
 		try {
 			setCallData(JSON.parse(message as string) as AllowArray<Call>);
@@ -61,10 +31,10 @@ export const CodeAreaWithButtons = () => {
 	return (
 		<div className="mt-10 flex flex-col justify-center">
 			<InstructionTitle />
+			<div  className="w-[23rem] h-[22rem] sm:w-[30rem] sm:h-[25rem] md:w-[35rem] md:h-[30rem] lg:w-[40rem] lg:h-[30rem] xl:w-[55rem] xl:h-[35rem]  self-center">
 			<Editor
-				height={editorHeight}
-				width={editorWidth}
-				theme="vs-dark"
+
+  theme="vs-dark"
 				language="json"
 				onChange={(message) => handleInputChange(message)}
 				options={options}
@@ -99,7 +69,9 @@ export const CodeAreaWithButtons = () => {
   }
 `}
 			/>
-			<div className="flex min-w-full flex-row items-center justify-between">
+			</div>
+
+			<div className="flex min-w-full items-center flex-row  justify-between">
 				<SubmitButton calls={callData} />
 				<SignButton userTypedData={typedData} />
 			</div>
