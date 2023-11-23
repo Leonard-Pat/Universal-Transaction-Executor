@@ -29,9 +29,9 @@ export const CodeAreaWithButtons = () => {
 	};
 
 	return (
-		<div className="mt-10 flex flex-col justify-center">
+		<div className="mb-10 flex flex-col justify-center">
 			<InstructionTitle />
-			<div className="h-[22rem] w-[23rem] self-center sm:h-[25rem] sm:w-[30rem] md:h-[25rem] md:w-[35rem] lg:h-[25rem] lg:w-[40rem] xl:h-[35rem]  xl:w-[55rem]">
+			<div className="h-[22rem] w-[23rem] self-center sm:h-[25rem] sm:w-[30rem] md:h-[25rem] md:w-[35rem] lg:h-[25rem] lg:w-[40rem] xl:h-[30rem]  xl:w-[55rem]">
 				<Editor
 					theme="vs-dark"
 					language="json"
