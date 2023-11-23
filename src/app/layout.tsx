@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Banner from './Banner';
+import Banner from '@/containers/Banner';
 
 import { Inter as FontSans } from 'next/font/google';
 
