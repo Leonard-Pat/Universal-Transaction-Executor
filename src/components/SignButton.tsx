@@ -3,7 +3,7 @@
 import { FC, useState } from 'react';
 import { useWalletStore } from '@/state/wallet';
 import toast, { Toaster } from 'react-hot-toast';
-import { AccountInterface, typedData } from 'starknet';
+import { AccountInterface, num, typedData } from 'starknet';
 import { FaFileSignature } from 'react-icons/fa6';
 import { SignatureModal } from './SignatureModal';
 
@@ -26,9 +26,10 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 			const userAccount: AccountInterface = account;
 			await userAccount.signMessage(userTypedData).then((sig) => {
 				toast.success('Messaged Signed!');
-				let sigArray = sig as string[];
-				setSignature(sigArray);
-				navigator.clipboard.writeText(sigArray.join(' '));
+				const sigArray = sig as string[];
+				const sigHexArray = sigArray.map((s) => num.toHex(s));
+				setSignature(sigHexArray);
+				navigator.clipboard.writeText(sigHexArray.join(' '));
 				setTimeout(() => {
 					setIsOpen(true);
 				}, 1000);
