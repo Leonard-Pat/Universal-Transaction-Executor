@@ -26,9 +26,9 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 			const userAccount: AccountInterface = account;
 			await userAccount.signMessage(userTypedData).then((sig) => {
 				toast.success('Messaged Signed!');
-				let sigString = sig as string[];
-				setSignature(sigString);
-				navigator.clipboard.writeText(sigString.join(' '));
+				let sigArray = sig as string[];
+				setSignature(sigArray);
+				navigator.clipboard.writeText(sigArray.join(' '));
 				setTimeout(() => {
 					setIsOpen(true);
 				}, 1000);
