@@ -32,7 +32,7 @@ export const SignatureModal: FC<ModalProps> = ({ signature, isOpen, setOpenState
 					</AlertDialogDescription>
 					<div className="flex flex-row items-center justify-between">
 						<p>
-							<span className="mr-2 text-base font-bold text-slate-600"> Signature S: </span>
+							<span className="mr-2 text-base font-bold text-slate-600"> Signature R: </span>
 							{signature[0].substring(0, 15)}...
 							{signature[0].substring(signature[0].length - 15)}
 						</p>
