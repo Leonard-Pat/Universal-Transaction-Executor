@@ -2,8 +2,6 @@
 
 import { useWalletStore } from '@/state/wallet';
 import { formatChainId } from '@/services/FormatChainId';
-import { GoDotFill } from 'react-icons/go';
-import { IconContext } from 'react-icons';
 
 function ChainViewer() {
 	const { account } = useWalletStore();
