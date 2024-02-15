@@ -14,12 +14,13 @@ import {
 import { toast } from 'react-hot-toast';
 
 interface ModalProps {
+	msgHash: string;
 	signature: string[];
 	isOpen: boolean;
 	setOpenState: (isOpen: boolean) => void;
 }
 
-export const SignatureModal: FC<ModalProps> = ({ signature, isOpen, setOpenState }) => {
+export const SignatureModal: FC<ModalProps> = ({ msgHash, signature, isOpen, setOpenState }) => {
 	return (
 		<AlertDialog open={isOpen}>
 			<AlertDialogContent>
@@ -31,31 +32,25 @@ export const SignatureModal: FC<ModalProps> = ({ signature, isOpen, setOpenState
 						you close this window, the signature will be lost.
 					</AlertDialogDescription>
 					<div className="flex flex-row items-center justify-between">
-						<p>
-							<span className="mr-2 text-base font-bold text-slate-600"> Signature R: </span>
-							{signature[0].substring(0, 15)}...
-							{signature[0].substring(signature[0].length - 15)}
-						</p>
+						<span className="mr-2 text-base font-bold text-slate-600"> Message Hash: </span>
+						<p style={{ overflowWrap: 'anywhere' }}>{msgHash}</p>
 						<FaPaste
-							size={20}
+							size={60}
 							className="mr-2 hover:cursor-pointer"
 							onClick={() => {
-								navigator.clipboard.writeText(signature[0]);
+								navigator.clipboard.writeText(msgHash);
 								toast.success('Successfully copied');
 							}}
 						/>
 					</div>
 					<div className="flex flex-row items-center justify-between">
-						<p>
-							<span className="mr-2 text-base font-bold text-slate-600"> Signature S: </span>
-							{signature[1].substring(0, 15)}...
-							{signature[1].substring(signature[1].length - 15)}
-						</p>
+						<span className="mr-2 text-base font-bold text-slate-600"> Signature: </span>
+						<p style={{ overflowWrap: 'anywhere' }}>{signature.join(', ')}</p>
 						<FaPaste
-							size={20}
+							size={60}
 							className="mr-2 hover:cursor-pointer"
 							onClick={() => {
-								navigator.clipboard.writeText(signature[1]);
+								navigator.clipboard.writeText(signature.join(', '));
 								toast.success('Successfully copied');
 							}}
 						/>

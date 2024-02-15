@@ -14,9 +14,10 @@ export const useWalletStore = create<WalletStore>((set) => ({
 	connect: async () => {
 		try {
 			const { connect } = await import('starknetkit');
-			const wallet = await connect({
+			const modalResult = await connect({
 				modalMode: 'alwaysAsk',
 			});
+			const wallet = modalResult.wallet;
 			if (!wallet || !wallet.account) {
 				throw new Error('No account found');
 			}
@@ -29,9 +30,10 @@ export const useWalletStore = create<WalletStore>((set) => ({
 	reconnect: async () => {
 		try {
 			const { connect } = await import('starknetkit');
-			const wallet = await connect({
+			const modalResult = await connect({
 				modalMode: 'neverAsk',
 			});
+			const wallet = modalResult.wallet;
 			if (!wallet?.account) {
 				throw new Error('No account found');
 			}

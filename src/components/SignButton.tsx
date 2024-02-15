@@ -15,6 +15,8 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 	const { connect, account } = useWalletStore();
 	const [isOpen, setIsOpen] = useState(false);
 	const [signature, setSignature] = useState<string[]>(['', '']);
+	const [msgHash, setMsgHash] = useState<string>('');
+
 	const connected = Boolean(account);
 
 	const handleSign = async () => {
@@ -24,11 +26,14 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 				return;
 			}
 			const userAccount: AccountInterface = account;
+			const messageHash = typedData.getMessageHash(userTypedData, account.address);
+
 			await userAccount.signMessage(userTypedData).then((sig) => {
 				toast.success('Messaged Signed!');
 				const sigArray = sig as string[];
 				const sigHexArray = sigArray.map((s) => num.toHex(s));
 				setSignature(sigHexArray);
+				setMsgHash(messageHash);
 				navigator.clipboard.writeText(sigHexArray.join(' '));
 				setTimeout(() => {
 					setIsOpen(true);
@@ -62,7 +67,12 @@ export const SignButton: FC<SignProps> = ({ userTypedData }) => {
 					<FaFileSignature size={25} />
 				</span>
 			</button>
-			<SignatureModal signature={signature} isOpen={isOpen} setOpenState={setIsOpen} />
+			<SignatureModal
+				signature={signature}
+				msgHash={msgHash}
+				isOpen={isOpen}
+				setOpenState={setIsOpen}
+			/>
 		</div>
 	);
 };
