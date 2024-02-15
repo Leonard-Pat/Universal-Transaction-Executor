@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { SubmitButton } from '@/components/SubmitButton';
 import InstructionTitle from '@/components/InstructionTitle';
-import Editor from '@monaco-editor/react';
+import { Editor, Monaco } from '@monaco-editor/react';
 import { AllowArray, Call, typedData } from 'starknet';
 import { SignButton } from '@/components/SignButton';
 
@@ -24,7 +24,6 @@ export const CodeAreaWithButtons = () => {
 		minimap: {
 			enabled: false,
 		},
-		wordWrap: 'on',
 		automaticLayout: true,
 	};
 
