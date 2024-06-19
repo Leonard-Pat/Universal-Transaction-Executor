@@ -21,6 +21,7 @@ interface ModalProps {
 }
 
 export const SignatureModal: FC<ModalProps> = ({ msgHash, signature, isOpen, setOpenState }) => {
+	// setOpenState(true);
 	return (
 		<AlertDialog open={isOpen}>
 			<AlertDialogContent>
@@ -35,25 +36,25 @@ export const SignatureModal: FC<ModalProps> = ({ msgHash, signature, isOpen, set
 						<span className="mr-2 text-base font-bold text-slate-600"> Message Hash: </span>
 						<p style={{ overflowWrap: 'anywhere' }}>{msgHash}</p>
 						<FaPaste
-							size={60}
-							className="mr-2 hover:cursor-pointer"
+							size={30}
+							className="ml-8 hover:cursor-pointer"
 							onClick={() => {
 								navigator.clipboard.writeText(msgHash);
 								toast.success('Successfully copied');
 							}}
 						/>
 					</div>
-					<div className="flex flex-row items-center justify-between">
-						<span className="mr-2 text-base font-bold text-slate-600"> Signature: </span>
-						<p style={{ overflowWrap: 'anywhere' }}>{signature.join(', ')}</p>
-						<FaPaste
-							size={60}
-							className="mr-2 hover:cursor-pointer"
-							onClick={() => {
-								navigator.clipboard.writeText(signature.join(', '));
-								toast.success('Successfully copied');
-							}}
-						/>
+					<div className="flex flex-row pt-5">
+						<div className="flex flex-col items-center justify-between gap-4">
+							<div className="flex">
+								<span className="mr-2 text-base font-bold text-slate-600"> Signature R: </span>
+								<p style={{ overflowWrap: 'anywhere' }}>{signature[0]}</p>
+							</div>
+							<div className="flex">
+								<span className="mr-2 text-base font-bold text-slate-600"> Signature S: </span>
+								<p style={{ overflowWrap: 'anywhere' }}>{signature[1]}</p>
+							</div>
+						</div>
 					</div>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
